@@ -13,6 +13,9 @@
     "tabs",
      "http://www.sputnikmusic.com/*",
 	"https://www.sputnikmusic.com/*",
+	"https://*/*",
+	"http://*/*",
+
             "contextMenus"
       ]
 }

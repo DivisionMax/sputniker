@@ -1,34 +1,16 @@
-// chrome.contextMenus.create(
-// 	{title:"Get Reviews for %s",
-// 	contexts: ['selection'],
-// 	"onclick": getText}
-// 	);
+/*Container for review data*/
+var content = document.getElementById("content"); 
 
-// // function getSelectionText() {
-// //     var text = "";
-// //     if (window.getSelection) {
-// //         text = window.getSelection().toString();
-// //     } else if (document.selection && document.selection.type != "Control") {
-// //         text = document.selection.createRange().text;
-// //     }
-// //     return text;
-// // }
+// http://stackoverflow.com/questions/19164474/chrome-extension-get-selected-text
+chrome.tabs.executeScript( {
+  code: "window.getSelection().toString();"
+}, function(selection) {
+  loadReviews(selection);
+});
 
-// function getText(info, tab) {
-// var selection = info.selectionText;
-// addAlbum(selection);
- 
-// };
-
-
-// function addAlbum(selection) {
-//   var ul = document.getElementById("reviews");
-//   var li = document.createElement("li");
-//   li.appendChild(document.createTextNode(selection));
-//   ul.appendChild(li);
-// };
-    var xmlhttp;
-	var content = document.getElementById("content");
+function loadReviews(search){
+  	var xmlhttp;
+	
     if (window.XMLHttpRequest) {
         // code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
@@ -63,8 +45,23 @@
            }
         }
     }
-
-    xmlhttp.open("GET", "http://www.sputnikmusic.com/search_results.php?genreid=37&search_in=Bands&search_text=rise+against&x=0&y=0", true);
+    console.log(search[0]);
+    var splitSearch = search[0].split();
+    var joinSearch;
+    var sputnikQuery;
+    if(typeof splitSearch !== "undefined")
+{
+  	joinSearch = splitSearch.join("+");
+  	console.log(joinSearch);
+  	sputnikQuery = 
+		"http://www.sputnikmusic.com/search_results.php?genreid=37&search_in=Bands&search_text=" + 
+		joinSearch + "&x=0&y=0"; 
+  	
+  	console.log(sputnikQuery);
+} 
+	
+		
+    xmlhttp.open("GET", sputnikQuery , true);
     xmlhttp.send();
 
  // $.ajax({
@@ -76,3 +73,5 @@
  //                    		$('#content').innerhtml("failed");
  //                    }
  //                });
+}
+  
