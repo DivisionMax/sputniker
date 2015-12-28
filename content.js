@@ -31,7 +31,12 @@ function loadReviews(search){
    // content.appendChild(p);
    			console.log(reviews[0]);
    			console.log(String(reviews[0]));
-           	content.appendChild(reviews[0]);
+   			if(typeof reviews[0] !== "undefined"){
+   				content.appendChild(reviews[0]);
+   			}else{
+   				content.append("<p>No results were found, the artist may be misspelt.</p>");
+   			}
+           	
            	console.log("Data appended");
           //     	var jsonText = JSON.parse(xmlhttp.responseText);
 		        // console.log(jsonText);
