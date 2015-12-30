@@ -2,11 +2,25 @@
 <html>
 <head>
 	<title></title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
 	<!-- append list item for each album -->
-	<div id="spinner"><img src="vinyl.gif" alt="loading"/><h2 style="text-align:center;">Searching..</h2></div>
-	<div id="content"></div>
+	<div id="spinner">
+		<img src="vinyl.gif" alt="loading"/><h2 id="searching">Searching..</h2>
+	</div>
+	<div id="searchForm">
+		<p>Enter artist name:</p>
+		<input required="" id="artist" type="text" name="artist">
+		<input id="search" type="submit" value="Search">
+	</div>
+	
+	<div id="content">
+				<button id="newsearch" type="button">New search</button>
+				<div id="reviews"></div>
+	</div>
+
+	<div class="error"></div>
 
 	<script src="jquery-1.11.3.min.js"></script>
 	 <script src="content.js"></script>

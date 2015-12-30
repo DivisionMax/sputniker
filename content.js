@@ -1,67 +1,118 @@
-/*Container for review data*/
-// var content = document.getElementById("content"); 
+//all elements are hidden by default
 
-// http://stackoverflow.com/questions/19164474/chrome-extension-get-selected-text
-$("#content").hide();
-$("#spinner").hide();
-$("#spinner").fadeIn();
-chrome.tabs.executeScript( {
-  code: "window.getSelection().toString();"
-}, function(selection) {
-  loadReviews(selection);
-});
+$(function(){
+	// http://stackoverflow.com/questions/19164474/chrome-extension-get-selected-text
+		chrome.tabs.executeScript( {
+	  code: "window.getSelection().toString();"
+	}, function(selection) {
+		if(selection != ""){
+			selection = selection[0];
+			loadReviews(selection);
+		}else{
+			// show the form
+			$("#searchForm").show();
+		}
+	  
+	});
+
+
+	
+	// handle events
+	$("#artist").keyup(function(event){
+	    if(event.keyCode == 13){
+	        $("#search").click();
+	    }
+	});
+	
+	$("#search").click(function(event){
+		event.preventDefault();
+		var search = $("#artist").val();
+		if (search){
+
+		}else{
+			search = "";
+		}
+   		 loadReviews(search);
+	});
+
+		$("#newsearch").click(function(event){
+		event.preventDefault();
+		$("#content").hide();
+		$("#searchForm").show();
+	});
+
+
+
+
+
 
 function loadReviews(search){
-	 search = search[0];
-	   console.log("Search term: " + search);
-	    // if(typeof splitSearch !== "undefined")
+	//the form might be hidden already
+	$("#searchForm").fadeOut("fast");
+	$("#reviews").empty();
+	 
+	 console.log("Search term: " + search);
 	    if(search != "")
-	{
+		{
 
-	    var splitSearch = search.split();
-	    var joinSearch = splitSearch.join("+");
-	    // it isn't joining correctly, but the query works.
-	  
-	  	var  sputnikQuery = 
-			"http://www.sputnikmusic.com/search_results.php?genreid=37&search_in=Bands&search_text=" + 
-			joinSearch + "&x=0&y=0"; 
-			console.log(sputnikQuery);
+		    var splitSearch = search.split();
+		    var joinSearch = splitSearch.join("+");
+		  
+		    // it isn't joining correctly, but the query works.
+		   	var  sputnikQuery = 
+				"http://www.sputnikmusic.com/search_results.php?genreid=37&search_in=Bands&search_text=" + 
+				joinSearch + "&x=0&y=0"; 
 
-		$.ajax({
-                    url: sputnikQuery,
-                    success: function(data) {
+			// fade in the spinner before search
+			$("#spinner").fadeIn();
+			$.ajax({
+	                    url: sputnikQuery,
+	                    success: function(data) {
 
-		           var reviews = $(data).find(".plaincontentbox");
-	
-		   			// console.log(reviews[0]);
-		   			// console.log(String(reviews[0]));
-		   			if(typeof reviews[0] !== "undefined"){
-		   				$("#content").append(reviews[0]);
-		   				$("#content img").each(function() {
-		   					var oldRelativeUrl = $(this).attr("src");
-		   					$(this).attr("src", "http://www.sputnikmusic.com" + oldRelativeUrl);
-						});
-						$("td form").remove();
+			           var reviews = $(data).find(".plaincontentbox");
+			   			// console.log(reviews[0]);
+			   			// console.log(String(reviews[0]));
+			   			if(typeof reviews[0] !== "undefined"){
+			   				$("#reviews").append(reviews[0]);
+			   				$("#reviews img").each(function() {
+			   					var oldRelativeUrl = $(this).attr("src");
+			   					$(this).attr("src", "http://www.sputnikmusic.com" + oldRelativeUrl);
+							});
+							$("td form").remove();
+   							$("#spinner").fadeOut("fast");
+				    		$("#content").show();
 		   				
-		   			}else{
-		   				$("#content").append("<p>No results were found, the artist may be misspelt.</p>");
-		   			}
+			   			}
+			   			else{
+			   				$("#artist").val(search);
+   							$("#spinner").fadeOut("fast");
+	   						$("#searchForm").show();
+
+			   				$(".error").text("<p>No results were found, the artist may be misspelt.</p>");
+			   			}
 
 
-                    },
-                    error:function(data){
-                    		$("#content").append("<p>Something went wrong. Please try again.</p>");
-                    }
-                });
+	                    },
+	                    error:function(data){
+     	   							$("#spinner").fadeOut("fast");
+			   						$("#searchForm").show();
+		                    		$(".error").html("<p>Something went wrong. Please try again.</p>");
+	                    }
+	                });
 
-			}else{
-			// if there is no search term. Show the popup with a search box.
-			console.log("No search term selected.");
-			$("#content").append("<p>A search query was not chosen.</p>");
-			}
+		}else{
+		$("#searchForm").fadeIn("fast");
 
-			$("#spinner").fadeOut("fast");
-    		$("#content").fadeIn("slow");
-		
-	} 
+		$(".error").text("<p>No search term.</p>");
+
+		}
+
+	};
+
+
+
+});
+
+
+
   
