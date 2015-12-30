@@ -1,6 +1,11 @@
 //all elements are hidden by default
 
+
 $(function(){
+
+
+
+
 	// http://stackoverflow.com/questions/19164474/chrome-extension-get-selected-text
 		chrome.tabs.executeScript( {
 	  code: "window.getSelection().toString();"
@@ -41,7 +46,7 @@ $(function(){
 		$("#searchForm").show();
 	});
 
-
+// if results don't contain a bandbox, still result the recommendations, but fix the links, provide a link to query
 
 
 

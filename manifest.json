@@ -5,17 +5,21 @@
   "description": "Hightlight or enter an artist. Click. Reviews",
   "version": "1.0",
   "browser_action": {
-    "default_icon": "icon.png",
+    // "default_icon": "icon.png",
     "default_title": "Get Reviews",
     "default_popup": "extension.html"
+  }, 
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+    // without persistance, it is an event page.
   },
   "permissions": [
-    "tabs",
-    "https://sputnikmusic.com/*",
-    "http://sputnikmusic.com/*",
-  	"https://*/*",
-	 "http://*/*",
-  "contextMenus"
-  // "activeTab"
+    "tabs", "contextMenus",
+    "https://sputnikmusic.com/*", "http://sputnikmusic.com/*",
+   "https://*/*", "http://*/*"
+   
       ]
+   
+  
 }
