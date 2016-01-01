@@ -1,22 +1,5 @@
-html{
-	width: auto;
-	
-}
-#searching{
-	text-align:center;
-}
-/*init*/
-#content, 
-#searchForm,
-#spinner{
-	display:none;
-}
-
-#newsearch{
-	float:right;
-}
-
 .error{
 	color:red;
+	display:none;
 }
 

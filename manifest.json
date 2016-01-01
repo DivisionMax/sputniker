@@ -16,10 +16,8 @@
   },
   "permissions": [
     "tabs", "contextMenus",
-    "https://sputnikmusic.com/*", "http://sputnikmusic.com/*",
+    // "https://sputnikmusic.com/*", "http://sputnikmusic.com/*",
    "https://*/*", "http://*/*"
    
       ]
-   
-  
 }
