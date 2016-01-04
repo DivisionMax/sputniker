@@ -1,6 +1,6 @@
 var  link = $("#sputnikLinked");
 if(link.length==0){
-$('table.plaincontentbox a').each(function(){
+$('table.plaincontentbox td[align="left"] a').each(function(){
 				var urlSplit = this.href.split('/');
 				var index = $.inArray("www.sputnikmusic.com",urlSplit);
  				var albumName = urlSplit[index+3]; 
@@ -11,7 +11,3 @@ $('table.plaincontentbox a').each(function(){
 				var marker = $('<span></span>').attr("id","sputnikLinked");
 				$("body").append(marker);	
 }
-
-
-
-

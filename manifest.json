@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
 
-  "name": "Sputnik Reviews",
+  "name": "Sputnik-Er",
   "description": "Hightlight or enter an artist. Click. Reviews",
   "version": "1.0",
   "browser_action": {

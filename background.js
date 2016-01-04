@@ -47,6 +47,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if(tab.status=="complete"){
            if(checkUrl(tab.url)){
     console.log("page updated and it's Sputnik page" + tabId);
+ chrome.tabs.insertCSS(tab.id, {file:"link.css"});
        chrome.tabs.executeScript(tab.id, { file: "jquery-1.11.3.min.js"}, function() {
           chrome.tabs.executeScript(tab.id, {file: 'inject.js'});
       });

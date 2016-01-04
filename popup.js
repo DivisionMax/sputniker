@@ -46,6 +46,6 @@ function openSputnik(selection){
  			id = tab.id;		
 		});
 		// background page handles creating youtube links 
-
+		}
 }); //document.ready
 
