@@ -1,27 +1,25 @@
 {
   "manifest_version": 2,
 
-  "name": "Sputnik-Er",
-  "description": "Hightlight or enter an artist. Click. Reviews",
+  "name": "Sputniker",
+  "description": "Find Artist. Click. Ratings",
   "version": "1.0",
   "browser_action": {
-    // 19dip
-    "default_icon": "icon2.png",
-    "default_title": "Get Reviews",
+    "default_icon": "icon.png",
+    "default_title": "Get Ratings",
     "default_popup": "extension.html"
   }, 
+   "icons": { "16": "icon.png",
+           "48": "icon.png",
+          "128": "icon.png" },
   "background": {
     "scripts": ["background.js"],
     "persistent": false
-    // without persistance, it is an event page.
   },
-  "icons": { "16": "icon2.png",
-           "48": "icon2.png",
-          "128": "icon2.png" },
+ 
   "permissions": [
     "tabs", "contextMenus",
     "https://sputnikmusic.com/*", "http://sputnikmusic.com/*",
    "https://*/*", "http://*/*"
-   
       ]
 }
